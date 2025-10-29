@@ -1,0 +1,106 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Bienvenue à la DCPR - PNH";
+}
+<link rel="stylesheet" href="~/css/stylemyindex.css" />
+
+<!-- SECTION LOGO -->
+<div class="anim">
+    <img src="~/image/logoPolice.png" class="mx-auto d-block img-fluid" alt="Logo PNH">
+</div>
+
+<!-- TEXTE DE BIENVENUE -->
+<div class="welcome-text">
+    <h1>
+        <i class="fas fa-shield-alt me-2"></i>
+        Bienvenue sur le Portail de la DCPR - PNH 🚓
+    </h1>
+    <p class="lead">
+        La Direction Centrale de la Police Routière veille sur votre sécurité et celle de tous les usagers de la route.
+    </p>
+</div>
+
+
+<!-- CARTES DE PRÉSENTATION -->
+<div class="row align-items-center justify-content-center text-center">
+    <div class="col-md-4 mb-4">
+        <div class="card animated-card">
+            <img src="~/image/Police3.jpg" class="card-img-top" alt="PNH">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-users me-2"></i> La PNH
+                </h5>
+                <p class="card-text">
+                    La PNH assure la sécurité publique, protège les citoyens et maintient l’ordre depuis 1995. 
+                    <span class="slogan"><i class="fas fa-shield-alt me-1"></i> Force civile, apolitique et professionnelle</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card animated-card">
+            <img src="~/image/Police4.jpg" class="card-img-top" alt="Mission">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-bullseye me-2"></i> Sa Mission
+                </h5>
+                <p class="card-text">
+                    Garantir la sécurité des citoyens, lutter contre la criminalité et protéger les droits humains.
+                    <span class="slogan"><i class="fas fa-gavel me-1"></i> Justice et Paix</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card animated-card">
+            <img src="~/image/Police2.webp" class="card-img-top" alt="DCPR">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-car-side me-2"></i> La DCPR
+                </h5>
+                <p class="card-text">
+                    La DCPR régule le trafic, prévient les accidents et veille au respect du Code de la route.
+                    <span class="slogan"><i class="fas fa-road me-1"></i> Sécurité Routière pour tous</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- MESSAGES MOTIVANTS -->
+    <div class="dashboard-messages row justify-content-center text-white">
+        <div class="col-md-4 mb-3">
+            <div class="card message-card h-100 p-3">
+                <i class="fas fa-shield-alt fa-2x mb-2 text-primary"></i>
+                <h5>Protéger</h5>
+                <p>Chaque citoyen protégé, chaque vie préservée. Votre engagement fait la différence !</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card message-card h-100 p-3">
+                <i class="fas fa-road fa-2x mb-2 text-warning"></i>
+                <h5>Prévenir</h5>
+                <p>La vigilance sur nos routes est la clé pour éviter les accidents et assurer la sécurité.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card message-card h-100 p-3">
+                <i class="fas fa-users fa-2x mb-2 text-success"></i>
+                <h5>Informer</h5>
+                <p>Chaque conducteur et agent informé contribue à une meilleure régulation du trafic.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BOUTON D'ACTION -->
+<div class="text-center mt-5">
+    <a href="#" class="btn btn-warning btn-lg shadow-lg animated-btn">
+        <i class="fas fa-book me-2"></i> En savoir plus
+    </a>
+</div>
+
+<footer>
+    &copy; 2025 DCPR - PNH. Tous droits réservés.
+</footer>

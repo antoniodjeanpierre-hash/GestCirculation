@@ -1,0 +1,98 @@
+@page
+@model GestCirculation.Pages_Conducteurs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/IndexConduc.css" />
+
+<div class="container fade-in">
+    <h1 class="text-center my-4 text-primary fw-bold title-animate">Liste des Conducteurs</h1>
+
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+        <a class="btn btn-success mb-2" asp-page="Create">
+            <i class="fas fa-plus"></i> Ajouter Nouveau
+        </a>
+
+        <div class="d-flex gap-2 mb-2">
+            <button id="exportExcel" class="btn btn-primary">
+                <i class="fas fa-file-excel"></i> Exporter Excel
+            </button>
+            <button id="exportPDF" class="btn btn-danger">
+                <i class="fas fa-file-pdf"></i> Exporter PDF
+            </button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+    <table id="conducteurTable" class="table custom-table shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th><i class="fas fa-id-card me-1 text-primary"></i> @Html.DisplayNameFor(model => model.Conducteur[0].Id)</th>
+                <th><i class="fas fa-user me-1 text-success"></i> @Html.DisplayNameFor(model => model.Conducteur[0].Nom)</th>
+                <th><i class="fas fa-user-tag me-1 text-info"></i> @Html.DisplayNameFor(model => model.Conducteur[0].Prenom)</th>
+                <th><i class="fas fa-venus-mars me-1 text-warning"></i> @Html.DisplayNameFor(model => model.Conducteur[0].Sexe)</th>
+                <th><i class="fas fa-id-badge me-1 text-danger"></i> @Html.DisplayNameFor(model => model.Conducteur[0].Nif)</th>
+                <th><i class="fas fa-cogs me-1 text-secondary"></i> Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Conducteur != null && Model.Conducteur.Any())
+            {
+                foreach (var item in Model.Conducteur)
+                {
+                    <tr class="table-row">
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nom)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Prenom)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sexe)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nif)</td>
+                        <td>
+                            <a class="btn btn-info btn-sm me-1" asp-page="./Edit" asp-route-id="@item.Id">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.Id">
+                                <i class="fas fa-trash-alt"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center text-muted">Aucun conducteur trouvé</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+    <div class="text-center mt-5">
+        <img src="~/image/logopolice.png" alt="Logo PNH" class="logo-pnh" />
+    </div>
+</div>
+
+<script>
+      document.getElementById('exportExcel').addEventListener('click', () => {
+    let table = document.getElementById('conducteurTable'); // ID de ta table
+    let wb = XLSX.utils.table_to_book(table, {sheet:"Conducteurs"});
+    XLSX.writeFile(wb, "Conducteurs.xlsx");
+});
+
+ document.getElementById('exportPDF').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    var doc = new jsPDF();
+
+    doc.autoTable({ 
+        html: '#conducteurTable', 
+        theme: 'grid',
+        headStyles: { fillColor: [41, 128, 185] },
+        alternateRowStyles: { fillColor: [220, 230, 241] }
+    });
+    doc.save('Conducteurs.pdf');
+});
+</script>

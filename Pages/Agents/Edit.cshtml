@@ -1,0 +1,115 @@
+@page
+@model GestCirculation.Pages_Agents.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<link rel="stylesheet" href="~/css/styless.css?v=1.0" />
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-card shadow-lg p-4 rounded-4" style="background: #f0f8ff;">
+                <h3 class="text-center mb-4 text-primary">
+                    <i class="fas fa-user-edit me-2"></i>Modifier l'Agent
+                </h3>
+                    <form method="post" id="agentEditForm">
+                        <input type="hidden" asp-for="Agent.Id" />
+                        <!-- Champ Code_agent -->
+                        <div class="form-group mb-3">
+                            <label asp-for="Agent.Code_agent" class="fw-bold">
+                                <i class="fas fa-id-badge me-1"></i>Code Agent
+                            </label>
+                            <input asp-for="Agent.Code_agent" class="form-control form-control-lg" />
+                            <span asp-validation-for="Agent.Code_agent" class="text-danger"></span>
+                        </div>
+                        <!-- Champ Affectation -->
+                        <div class="form-group mb-3">
+                            <label asp-for="Agent.Affectation" class="fw-bold">
+                                <i class="fas fa-map-marker-alt me-1"></i>Affectation
+                            </label>
+                            <input asp-for="Agent.Affectation" class="form-control form-control-lg" />
+                            <span asp-validation-for="Agent.Affectation" class="text-danger"></span>
+                        </div>
+                        <!-- Nom -->
+                        <div class="form-group mb-3">
+                            <label asp-for="Agent.Nom" class="fw-bold">
+                                <i class="fas fa-user me-1"></i>Nom
+                            </label>
+                            <input asp-for="Agent.Nom" class="form-control form-control-lg" />
+                            <span asp-validation-for="Agent.Nom" class="text-danger"></span>
+                        </div>
+                        <!-- Prénom -->
+                        <div class="form-group mb-4">
+                            <label asp-for="Agent.Prenom" class="fw-bold">
+                                <i class="fas fa-user-tag me-1"></i>Prénom
+                            </label>
+                            <input asp-for="Agent.Prenom" class="form-control form-control-lg" />
+                            <span asp-validation-for="Agent.Prenom" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary btn-lg shadow-sm" onclick="validateForm()">
+                                <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                            </button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton retour -->
+    <div class="text-center mt-4">
+        <a class="btn btn-secondary btn-lg shadow-sm" asp-page="Index">
+            <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function validateForm() {
+            const form = document.getElementById("agentEditForm");
+            let isValid = true;
+
+            form.querySelectorAll("input").forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add("is-invalid");
+                    isValid = false;
+                } else {
+                    input.classList.remove("is-invalid");
+                }
+            });
+
+            if (!isValid) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Champs manquants",
+                    text: "Veuillez remplir tous les champs obligatoires.",
+                    confirmButtonColor: "#3085d6"
+                });
+                return;
+            }
+
+            // Confirmation avant modification
+            Swal.fire({
+                title: "Confirmation",
+                text: "Voulez-vous enregistrer les modifications ?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Oui, enregistrer",
+                cancelButtonText: "Annuler"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+        </script>
+    }

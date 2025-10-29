@@ -1,0 +1,97 @@
+@page
+@model GestCirculation.Pages_Agents.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<link rel="stylesheet" href="~/css/deleteagent.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/DeleteAgent.css" />
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-danger fw-bold">
+            <i class="fas fa-user-times me-2"></i> Supprimer un Agent
+        </h1>
+        <h4 class="text-muted">
+            <i class="fas fa-exclamation-triangle me-2"></i> Êtes-vous sûr de vouloir supprimer cet agent ?
+        </h4>
+    </div>
+
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+            <h4 class="text-center text-primary mb-3">
+                <i class="fas fa-id-badge me-2"></i> Détails de l'Agent
+            </h4>
+            <hr />
+
+            <dl class="row px-3">
+                <dt class="col-sm-4 text-end fw-semibold"><i class="fas fa-barcode me-1 text-primary"></i> @Html.DisplayNameFor(model => model.Agent.Code_agent)</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Agent.Code_agent)</dd>
+
+                <dt class="col-sm-4 text-end fw-semibold"><i class="fas fa-building me-1 text-primary"></i> @Html.DisplayNameFor(model => model.Agent.Affectation)</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Agent.Affectation)</dd>
+
+                <dt class="col-sm-4 text-end fw-semibold"><i class="fas fa-user me-1 text-primary"></i> @Html.DisplayNameFor(model => model.Agent.Nom)</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Agent.Nom)</dd>
+
+                <dt class="col-sm-4 text-end fw-semibold"><i class="fas fa-user-tag me-1 text-primary"></i> @Html.DisplayNameFor(model => model.Agent.Prenom)</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Agent.Prenom)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form id="deleteForm" method="post" class="text-center mt-4">
+        <input type="hidden" asp-for="Agent.Id" />
+
+        <button type="button" id="deleteBtn" class="btn btn-danger btn-lg shadow-sm me-2">
+            <i class="fas fa-trash-alt me-1"></i> Supprimer
+        </button>
+
+        <a class="btn btn-outline-secondary btn-lg shadow-sm" asp-page="./Index">
+            <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById("deleteBtn").addEventListener("click", function (e) {
+            Swal.fire({
+                title: "Confirmer la suppression",
+                text: "Voulez-vous vraiment supprimer cet agent ? Cette action est irréversible.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Oui, supprimer",
+                cancelButtonText: "Annuler"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("deleteForm").submit();
+                    RedirectToPage("./Index");
+                }
+            });
+        });
+
+        // Affiche le pop-up après redirection
+        @if (TempData["PopupMessage"] != null)
+        {
+            <text>
+            Swal.fire({
+                icon: '@TempData["PopupType"]',
+                title: '@TempData["PopupMessage"]',
+                showConfirmButton: false,
+                timer: 2500,
+                background: "#fefefe",
+                color: "#333",
+                timerProgressBar: true
+            });
+            </text>
+        }
+    </script>
+}

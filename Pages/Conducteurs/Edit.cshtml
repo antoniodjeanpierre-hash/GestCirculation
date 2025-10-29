@@ -1,0 +1,130 @@
+@page
+@model GestCirculation.Pages_Conducteurs.EditModel
+
+@{
+    ViewData["Title"] = "Modifier le Conducteur";
+}
+<link rel="stylesheet" href="~/css/styless.css?v=1.0" />
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-card shadow-lg p-4 rounded-4" style="background: #f0f8ff;">
+                <h3 class="text-center mb-4 text-primary">
+                    <i class="fas fa-user-edit me-2"></i>Modifier le Conducteur
+                </h3>
+
+                <form id="conducteurEditForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-center mb-3"></div>
+                    <input type="hidden" asp-for="Conducteur.Id" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Conducteur.Nom" class="fw-bold">
+                            <i class="fas fa-user me-1"></i>Nom
+                        </label>
+                        <input asp-for="Conducteur.Nom" class="form-control form-control-lg" required />
+                        <span asp-validation-for="Conducteur.Nom" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Conducteur.Prenom" class="fw-bold">
+                            <i class="fas fa-user-tag me-1"></i>Prénom
+                        </label>
+                        <input asp-for="Conducteur.Prenom" class="form-control form-control-lg" required />
+                        <span asp-validation-for="Conducteur.Prenom" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">
+                            <i class="fas fa-venus-mars me-1"></i>Sexe
+                        </label>
+                        <div class="gender-selection d-flex gap-3 mt-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="Conducteur.Sexe" value="Masculin" id="sexeMasculin" />
+                                <label class="form-check-label" for="sexeMasculin">Masculin</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="Conducteur.Sexe" value="Féminin" id="sexeFeminin" />
+                                <label class="form-check-label" for="sexeFeminin">Féminin</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="Conducteur.Sexe" value="Autre" id="sexeAutre" />
+                                <label class="form-check-label" for="sexeAutre">Autre</label>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Conducteur.Sexe" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Conducteur.Nif" class="fw-bold">
+                            <i class="fas fa-id-card me-1"></i>NIF
+                        </label>
+                        <input asp-for="Conducteur.Nif" class="form-control form-control-lg" required />
+                        <span asp-validation-for="Conducteur.Nif" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary btn-lg shadow-sm" onclick="validateForm()">
+                            <i class="fas fa-save me-2"></i>Modifier
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a class="btn btn-secondary btn-lg shadow-sm" asp-page="Index">
+            <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function validateForm() {
+            const form = document.getElementById("conducteurEditForm");
+            let isValid = true;
+
+            // Vérifie que tous les champs requis sont remplis
+            form.querySelectorAll("input[required]").forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add("is-invalid");
+                    isValid = false;
+                } else {
+                    input.classList.remove("is-invalid");
+                }
+            });
+
+            if (isValid) {
+                Swal.fire({
+                    title: "Confirmation",
+                    text: "Voulez-vous enregistrer les modifications ?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Oui, modifier",
+                    cancelButtonText: "Annuler"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                        RedirectToPage("./Index");
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Champs manquants",
+                    text: "Veuillez remplir tous les champs obligatoires.",
+                    confirmButtonColor: "#3085d6"
+                });
+            }
+        }
+
+    </script>
+}

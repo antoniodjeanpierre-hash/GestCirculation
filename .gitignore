@@ -1,0 +1,21 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# SQLite files
+*.db
+*.sqlite
+
+# AppSettings de développement
+appsettings.Development.json
+
+# Logs
+*.log
+
+# Publish output
+publish/

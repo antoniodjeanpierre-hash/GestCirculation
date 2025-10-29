@@ -1,0 +1,111 @@
+@page
+@model GestCirculation.Pages_Conducteurs.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/styles.css" rel="conducdelete" />
+<link rel="stylesheet" href="~/css/DeleteAgent.css" /> 
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-danger fw-bold">
+            <i class="fas fa-user-times me-2"></i>
+            Suppression d’un Conducteur
+        </h1>
+        <h4 class="text-muted">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Êtes-vous sûr de vouloir supprimer ce conducteur ?
+        </h4>
+    </div>
+
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+            <h4 class="text-center text-primary mb-3">
+                <i class="fas fa-id-card me-2"></i> Détails du Conducteur
+            </h4>
+            <hr />
+
+            <dl class="row px-3">
+                <dt class="col-sm-4 text-end fw-semibold">
+                    <i class="fas fa-user me-1 text-primary"></i>
+                    @Html.DisplayNameFor(model => model.Conducteur.Nom)
+                </dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Conducteur.Nom)</dd>
+
+                <dt class="col-sm-4 text-end fw-semibold">
+                    <i class="fas fa-user-tag me-1 text-primary"></i>
+                    @Html.DisplayNameFor(model => model.Conducteur.Prenom)
+                </dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Conducteur.Prenom)</dd>
+
+                <dt class="col-sm-4 text-end fw-semibold">
+                    <i class="fas fa-venus-mars me-1 text-primary"></i>
+                    @Html.DisplayNameFor(model => model.Conducteur.Sexe)
+                </dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Conducteur.Sexe)</dd>
+
+                <dt class="col-sm-4 text-end fw-semibold">
+                    <i class="fas fa-id-badge me-1 text-primary"></i>
+                    @Html.DisplayNameFor(model => model.Conducteur.Nif)
+                </dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Conducteur.Nif)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form id="deleteForm"  method="post" class="text-center mt-4">
+        <input type="hidden" asp-for="Conducteur.Id" />
+
+        <button type="button" id="deleteBtn" class="btn btn-danger btn-lg shadow-sm me-2">
+            <i class="fas fa-trash-alt me-1"></i> Supprimer
+        </button>
+
+        <a class="btn btn-outline-secondary btn-lg shadow-sm" asp-page="./Index">
+            <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById("deleteBtn").addEventListener("click", function (e) {
+            Swal.fire({
+                title: "Confirmer la suppression",
+                text: "Voulez-vous vraiment supprimer ce Conducteur ? Cette action est irréversible.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Oui, supprimer",
+                cancelButtonText: "Annuler"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("deleteForm").submit();
+                    RedirectToPage("./Index");
+                }
+            });
+        });
+
+        // Affiche le pop-up après redirection
+        @if (TempData["PopupMessage"] != null)
+        {
+            <text>
+            Swal.fire({
+                icon: '@TempData["PopupType"]',
+                title: '@TempData["PopupMessage"]',
+                showConfirmButton: false,
+                timer: 2500,
+                background: "#fefefe",
+                color: "#333",
+                timerProgressBar: true
+            });
+            </text>
+        }
+    </script>
+}

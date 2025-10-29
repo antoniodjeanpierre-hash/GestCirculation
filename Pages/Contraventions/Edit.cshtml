@@ -1,0 +1,181 @@
+@page
+@model GestCirculation.Pages_Contraventions.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<link rel="stylesheet" href="~/css/editcontravention.css?v=1.0" />
+
+
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-3">
+        <i class="fas fa-edit me-2"></i>Modifier la Contravention
+    </h1>
+    <h4 class="text-center text-secondary mb-4">Détails de la Contravention</h4>
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form id="contraventionForm" method="post" class="bg-light p-4 rounded-4 shadow-lg">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Contravention.Id" />
+
+                <!-- Plaque -->
+                <div class="form-group mb-3">
+                    <label asp-for="Contravention.Plaque_vehicule" class="fw-bold">
+                        <i class="fas fa-car me-2 text-primary"></i>Plaque de véhicule
+                    </label>
+                    <input asp-for="Contravention.Plaque_vehicule" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Contravention.Plaque_vehicule" class="text-danger"></span>
+                </div>
+
+                <!-- Couleur -->
+                <div class="form-group mb-3">
+                    <label asp-for="Contravention.Couleur" class="fw-bold">
+                        <i class="fas fa-paint-brush me-2 text-warning"></i>Couleur
+                    </label>
+                    <input asp-for="Contravention.Couleur" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Contravention.Couleur" class="text-danger"></span>
+                </div>
+
+                <!-- Marque -->
+                <div class="form-group mb-3">
+                    <label asp-for="Contravention.Marque" class="fw-bold">
+                        <i class="fas fa-car-side me-2 text-success"></i>Marque
+                    </label>
+                    <input asp-for="Contravention.Marque" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Contravention.Marque" class="text-danger"></span>
+                </div>
+
+                <!-- Adresse -->
+                <div class="form-group mb-3">
+                    <label asp-for="Contravention.Adresse" class="fw-bold">
+                        <i class="fas fa-map-marker-alt me-2 text-danger"></i>Adresse
+                    </label>
+                    <input asp-for="Contravention.Adresse" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Contravention.Adresse" class="text-danger"></span>
+                </div>
+
+                <!-- Article -->
+                <div class="form-group mb-3">
+                    <label asp-for="Contravention.Article_violation" class="fw-bold">
+                        <i class="fas fa-scroll me-2 text-secondary"></i>Article de Violation
+                    </label>
+                    <input asp-for="Contravention.Article_violation" class="form-control form-control-lg" required />
+                    <span asp-validation-for="Contravention.Article_violation" class="text-danger"></span>
+                </div>
+
+                <!-- Date -->
+                <div class="form-group mb-3">
+                    <label asp-for="Contravention.Date_contravention" class="fw-bold">
+                        <i class="fas fa-calendar-alt me-2 text-primary"></i>Date de la Contravention
+                    </label>
+                    <input asp-for="Contravention.Date_contravention" class="form-control form-control-lg" type="date" required />
+                    <span asp-validation-for="Contravention.Date_contravention" class="text-danger"></span>
+                </div>
+
+                <!-- Conducteur -->
+                <div class="form-group mb-3">
+                    <label asp-for="Contravention.ConducteurId" class="fw-bold">
+                        <i class="fas fa-user me-2 text-info"></i>Conducteur
+                    </label>
+                    <select asp-for="Contravention.ConducteurId" class="form-select form-select-lg" asp-items="ViewBag.ConducteurNom" required></select>
+                    <span asp-validation-for="Contravention.ConducteurId" class="text-danger"></span>
+                </div>
+
+                <!-- Agent -->
+                <div class="form-group mb-4">
+                    <label asp-for="Contravention.AgentId" class="fw-bold">
+                        <i class="fas fa-user-shield me-2 text-success"></i>Agent
+                    </label>
+                    <select asp-for="Contravention.AgentId" class="form-select form-select-lg" asp-items="ViewBag.AgentNom" required></select>
+                    <span asp-validation-for="Contravention.AgentId" class="text-danger"></span>
+                </div>
+
+                <!-- Bouton -->
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-lg shadow-sm" onclick="validateForm()">
+                        <i class="fas fa-save me-2"></i>Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Retour -->
+    <div class="text-center mt-4">
+        <a asp-page="./Index" class="btn btn-secondary btn-lg shadow-sm">
+            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function validateForm() {
+            const form = document.getElementById("contraventionForm");
+            let isValid = true;
+
+            form.querySelectorAll("input[required], select[required]").forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add("is-invalid");
+                    isValid = false;
+                } else {
+                    input.classList.remove("is-invalid");
+                }
+            });
+
+            if (isValid) {
+                Swal.fire({
+                    title: "Confirmation",
+                    text: "Voulez-vous enregistrer les modifications ?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Oui, modifier",
+                    cancelButtonText: "Annuler"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                        RedirectToPage("./Index");
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Champs manquants",
+                    text: "Veuillez remplir tous les champs obligatoires.",
+                    confirmButtonColor: "#3085d6"
+                });
+                return;
+            }
+        }
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <text>
+                Swal.fire({
+                    icon: "success",
+                    title: "Succès",
+                    text: "@Model.SuccessMessage",
+                    confirmButtonColor: "#3085d6"
+                });
+            </text>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <text>
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur",
+                    text: "@Model.ErrorMessage",
+                    confirmButtonColor: "#d33"
+                });
+            </text>
+        }  
+    </script>
+}

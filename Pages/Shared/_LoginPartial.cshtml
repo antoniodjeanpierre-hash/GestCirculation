@@ -1,0 +1,55 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<link rel="stylesheet" href="~/css/styleLoginPartial.css" />
+
+<ul class="navbar-nav align-items-center">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item me-3">
+        <a id="manage" class="nav-link user-link" 
+           asp-area="Identity" asp-page="/Account/Manage/Index" title="Gérer le compte">
+           👮‍♂️ Salut @UserManager.GetUserName(User)!
+        </a>
+    </li>
+
+    <li class="nav-item me-2">
+        <a class="nav-link nav-btn" asp-page="/Agents/Index">
+            <i class="fa-solid fa-user-shield"></i> Agents
+        </a>
+    </li>
+    <li class="nav-item me-2">
+        <a class="nav-link nav-btn" asp-page="/Conducteurs/Index">
+            <i class="fa-solid fa-id-card"></i> Conducteurs
+        </a>
+    </li>
+    <li class="nav-item me-3">
+        <a class="nav-link nav-btn" asp-page="/Contraventions/Index">
+            <i class="fa-solid fa-triangle-exclamation"></i> Contraventions
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <form id="logoutForm" class="d-flex align-items-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+            <button id="logout" type="submit" class="btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+            </button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item me-2">
+        <a class="btn-register" asp-area="Identity" asp-page="/Account/Register">
+            <i class="fa-solid fa-user-plus"></i> S'inscrire
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="btn-login" asp-area="Identity" asp-page="/Account/Login">
+            <i class="fa-solid fa-right-to-bracket"></i> Se connecter
+        </a>
+    </li>
+}
+</ul>

@@ -1,0 +1,74 @@
+﻿@page
+@model GestCirculation.Areas.Identity.Pages.Account.RegisterAgentModel
+
+@{
+    ViewData["Title"] = "";
+}
+<link rel="stylesheet" href="~/css/loginAccount.css" />
+
+<h1 class="text-center mb-4 text-primary fw-bold">@ViewData["Title"]</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <section class="login-container p-4 rounded shadow">
+            <form id="register" method="post">
+                <h2 class="mb-3 text-center text-dark fw-semibold">Créer un nouveau compte d'agent</h2>
+                <hr class="mb-4" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="email" placeholder="Email" />
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" placeholder="Mot de passe" />
+                    <label asp-for="Input.Password" class="form-label">Mot de passe</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="Confirmer le mot de passe" />
+                    <label asp-for="Input.ConfirmPassword" class="form-label">Confirmer le mot de passe</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.CodeAgent" class="form-control" placeholder="Code de l'agent" />
+                    <label asp-for="Input.CodeAgent" class="form-label">Code de l'agent</label>
+                    <span asp-validation-for="Input.CodeAgent" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Affectation" class="form-control" placeholder="Affectation" />
+                    <label asp-for="Input.Affectation" class="form-label">Affectation</label>
+                    <span asp-validation-for="Input.Affectation" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Nom" class="form-control" placeholder="Nom" />
+                    <label asp-for="Input.Nom" class="form-label">Nom</label>
+                    <span asp-validation-for="Input.Nom" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input asp-for="Input.Prenom" class="form-control" placeholder="Prénom" />
+                    <label asp-for="Input.Prenom" class="form-label">Prénom</label>
+                    <span asp-validation-for="Input.Prenom" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="w-100 btn-login-submit">S'inscrire</button>
+            </form>
+        </section>
+
+        <!-- Logo animé PNH -->
+        <div class="text-center mt-5">
+            <img src="~/image/logoPolice.png" alt="Logo PNH" class="logo-pnh-anim img-fluid">
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

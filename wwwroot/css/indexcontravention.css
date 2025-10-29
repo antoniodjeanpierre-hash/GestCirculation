@@ -1,0 +1,88 @@
+body {
+    background-color: #f4f7fa;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #4a5568;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.container {
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-row {
+    transition: background-color 0.3s ease;
+}
+
+.table-row:hover {
+    background-color: #f0e5ff;
+}
+
+.table th {
+    text-align: center;
+    background-color: #6b46c1;
+    color: white;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.btn {
+    transition: transform 0.2s ease;
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #6b46c1;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #e9ecef;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #d1ecf1;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid #dee2e6;
+}

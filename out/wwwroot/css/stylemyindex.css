@@ -1,0 +1,135 @@
+/* --- ANIMATIONS GLOBALES --- */
+@keyframes fadeInZoom {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.9; }
+}
+
+@keyframes bounceIn {
+    0% { transform: translateY(-50px); opacity: 0; }
+    60% { transform: translateY(10px); opacity: 1; }
+    80% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+/* --- BODY --- */
+body {
+    background: linear-gradient(135deg, #8dc5fc, #0156ac);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+/* --- LOGO --- */
+.anim {
+    text-align: center;
+    margin-top: 40px;
+    animation: fadeInZoom 1.2s ease-out;
+}
+
+.anim img {
+    width: 150px;
+    animation: pulse 3s infinite ease-in-out;
+}
+
+/* --- TEXTE DE BIENVENUE --- */
+.welcome-text {
+    text-align: center;
+    margin: 20px 0 50px;
+    animation: bounceIn 1.2s ease;
+}
+
+.welcome-text h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+.welcome-text p {
+    font-size: 1.2rem;
+    color: #dbe4ff;
+}
+
+/* --- CARTES --- */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: fadeInZoom 1.2s ease;
+    background-color: #5ca9f7;
+    color: #212529;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: #003366;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.card-text {
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.slogan {
+    display: block;
+    font-size: 0.85rem;
+    color: #FFD700;
+    margin-top: 5px;
+}
+
+/* --- ESPACEMENT COLONNES --- */
+.row {
+    margin-top: 50px;
+    padding: 0 40px;
+}
+
+/* --- BOUTON EN SAVOIR PLUS --- */
+.animated-btn {
+    animation: bounceIn 1s ease;
+    transition: transform 0.3s ease;
+}
+
+.animated-btn:hover {
+    transform: scale(1.1);
+    margin-top: 5px;
+}  
+
+ /* --- Cartes de messages --- */
+    .message-card {
+        background: #5ca9f7;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        opacity: 0; /* start hidden */
+        transform: scale(0.8);
+        animation: fadeInZoom 0.8s forwards;
+    }
+
+    .message-card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .message-card i {
+        display: block;
+        margin: 0 auto 10px auto;
+    }
