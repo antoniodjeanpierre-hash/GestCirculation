@@ -16,7 +16,7 @@ WORKDIR /app
 COPY --from=build /app/out ./
 
 # Copier le fichier SQLite
-COPY ./Data/gestionContraventions.db ./Data/gestionContraventions.db
+COPY ./gestionContraventions.db ./gestionContraventions.db
 
 # Exposer le port
 EXPOSE 5000
