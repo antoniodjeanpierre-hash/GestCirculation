@@ -1,29 +1,25 @@
-# Étape 1 : Utiliser l'image .NET SDK pour build
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+# Étape 1 : utiliser l'image SDK pour publier l'application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copier tous les fichiers du projet
+COPY . .
+
+# Publier l'application en Release dans le dossier /app/out
+RUN dotnet publish "GestCirculation.csproj" -c Release -o /app/out
+
+# Étape 2 : créer l'image runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# Copier les fichiers csproj et restaurer les dépendances
-COPY *.sln .
-COPY GestCirculation/*.csproj ./GestCirculation/
-RUN dotnet restore
-
-# Copier tout le reste du projet
-COPY GestCirculation/. ./GestCirculation/
-
-# Publier l'application dans le dossier /out
-WORKDIR /app/GestCirculation
-RUN dotnet publish -c Release -o /app/out
-
-# Étape 2 : Image runtime pour exécuter l'application
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
-WORKDIR /app
+# Copier le résultat du build
 COPY --from=build /app/out ./
 
-# Si tu as une DB SQLite, copie-la également
-COPY GestCirculation/Data/GestCirculation.db ./Data/
+# Copier le fichier SQLite
+COPY ./Data/gestionContraventions.db ./Data/gestionContraventions.db
 
-# Exposer le port utilisé par ASP.NET
+# Exposer le port
 EXPOSE 5000
 
-# Démarrer l'application
+# Lancer l'application
 ENTRYPOINT ["dotnet", "GestCirculation.dll"]
